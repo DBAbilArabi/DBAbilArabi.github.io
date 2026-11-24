@@ -4,72 +4,70 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>تنزيل SQL Server 2022 صح | DBA بالعربي</title>
-<meta name="description" content="الدليل المكتوب لفيديو تنزيل SQL Server 2022: gMSA، named instance على port 1433، وإعدادات الـ setup المهمة.">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<meta name="description" content="الدليل المكتوب لفيديو تنزيل SQL Server 2022 خطوة بخطوة، وين تشتغل وصورة لكل خطوة.">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-  :root { --navy: #1F2630; --yellow: #F7CE46; --ink: #1F2630; --muted: #5B6573; --line: #E3E6EB; --soft: #F6F7F9; }
+  :root { --navy: #1F2630; --yellow: #F7CE46; --muted: #5B6573; --line: #E3E6EB; }
   * { box-sizing: border-box; }
-  body { margin: 0; font-family: Cairo, 'Segoe UI', Tahoma, sans-serif; color: var(--ink); font-size: 17px; line-height: 1.8; background: #ECEEF1; }
-  main { background: #fff; max-width: 820px; margin: 28px auto; padding: 40px 48px 48px; border-radius: 6px; }
-  header img { height: 56px; }
-  h1 { font-size: 34px; line-height: 1.35; margin: 14px 0 4px; font-weight: 800; }
-  .lead { color: var(--muted); margin: 0 0 14px; }
-  .btn { display: inline-block; background: var(--yellow); color: var(--navy); font-weight: 800; text-decoration: none; padding: 5px 16px; border-radius: 6px; margin-left: 6px; }
-  .btn.alt { background: #fff; border: 2px solid var(--navy); padding: 3px 14px; }
-  .result { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; background: var(--soft); border-radius: 10px; padding: 14px 18px; margin: 18px 0 6px; }
-  .result div { font-size: 15.5px; }
-  .result span { color: var(--muted); display: block; font-size: 13px; line-height: 1.3; }
-  section { margin-top: 38px; }
-  h2 { font-size: 24px; margin: 0 0 4px; display: flex; align-items: center; gap: 12px; font-weight: 800; border-bottom: 3px solid var(--yellow); padding-bottom: 6px; }
-  h2 .n { background: var(--navy); color: var(--yellow); width: 36px; height: 36px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex: none; }
-  h2 small { margin-right: auto; color: var(--muted); font-size: 14px; font-weight: 700; }
-  .why { color: var(--muted); margin: 8px 0; }
-  ol, ul { margin: 8px 0; padding-right: 24px; padding-left: 0; }
-  li { margin: 4px 0; }
-  b { font-weight: 800; }
-  code { font-family: 'JetBrains Mono', Consolas, monospace; direction: ltr; unicode-bidi: isolate; background: #EEF1F5; border-radius: 4px; padding: 0 6px; font-size: 14.5px; white-space: nowrap; }
-  .cmd { position: relative; margin: 10px 0 4px; }
-  pre { font-family: 'JetBrains Mono', Consolas, monospace; direction: ltr; text-align: left; background: var(--navy); color: #F4F4F4; border-radius: 8px; padding: 12px 70px 12px 16px; font-size: 15px; line-height: 1.6; margin: 0; white-space: pre-wrap; word-break: break-word; }
-  .copy { position: absolute; top: 9px; right: 9px; font-family: Cairo, sans-serif; font-size: 13px; font-weight: 800; border: 0; border-radius: 5px; padding: 1px 10px; background: var(--yellow); color: var(--navy); cursor: pointer; }
-  .flags { margin: 4px 0 12px; font-size: 14.5px; color: var(--muted); line-height: 1.7; }
-  .flags code { font-size: 13.5px; }
-  .opts { margin: 8px 0; font-size: 15.5px; }
-  .opts .o { display: block; padding: 2px 0; }
-  .opts .o.pick { font-weight: 700; }
-  .opts .o.pick::before { content: "✓ "; color: #1E8E3E; font-weight: 800; }
-  .opts .o:not(.pick)::before { content: "• "; color: #9AA3AF; }
-  .ok { background: #EAF7EE; border-radius: 8px; padding: 8px 14px; margin: 10px 0; font-size: 15.5px; }
-  .ok::before { content: "✓ "; color: #1E8E3E; font-weight: 800; }
-  .warn { background: #FFF3E6; border-radius: 8px; padding: 8px 14px; margin: 10px 0; font-size: 15.5px; }
-  figure { margin: 12px 0 14px; }
+  body { margin: 0; font-family: Cairo, 'Segoe UI', Tahoma, sans-serif; color: var(--navy); font-size: 18px; line-height: 1.8; background: #ECEEF1; }
+  main { background: #fff; max-width: 860px; margin: 28px auto; padding: 40px 48px 48px; border-radius: 6px; }
+  header img.logo { height: 54px; }
+  h1 { font-size: 34px; line-height: 1.35; margin: 12px 0 6px; font-weight: 800; }
+  .lead { color: var(--muted); margin: 0 0 16px; }
+  .btn { display: inline-block; background: var(--yellow); color: var(--navy); font-weight: 800; text-decoration: none; padding: 6px 18px; border-radius: 6px; margin-left: 6px; }
+  .btn.alt { background: #fff; border: 2px solid var(--navy); padding: 4px 16px; }
+  .part { margin: 48px 0 0; background: var(--navy); color: #fff; border-radius: 8px; padding: 10px 18px; font-size: 20px; font-weight: 800; }
+  .part span { color: var(--yellow); }
+  .step { margin: 34px 0 0; }
+  h2 { font-size: 23px; margin: 0 0 6px; display: flex; align-items: center; gap: 12px; font-weight: 800; }
+  h2 .n { background: var(--navy); color: var(--yellow); min-width: 38px; height: 38px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 19px; flex: none; }
+  .where { display: table; background: #FFF3C4; border-right: 4px solid var(--yellow); border-radius: 6px; padding: 3px 12px; font-size: 15.5px; font-weight: 700; margin: 2px 0 8px; }
+  .where::before { content: "📍 وين: "; }
+  .step p { margin: 4px 0 8px; }
+  .path { direction: ltr; unicode-bidi: isolate; font-weight: 700; background: #EEF1F5; border-radius: 4px; padding: 1px 8px; font-size: 16px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .where bdi { direction: ltr; unicode-bidi: isolate; }
+  .nw { white-space: nowrap; }
+  code { font-family: 'JetBrains Mono', Consolas, monospace; direction: ltr; unicode-bidi: isolate; background: #FFF3C4; border-radius: 4px; padding: 0 7px; font-size: 15.5px; white-space: nowrap; font-weight: 500; }
+  .cmd { position: relative; margin: 10px 0; }
+  pre { font-family: 'JetBrains Mono', Consolas, monospace; direction: ltr; text-align: left; background: var(--navy); color: #F4F4F4; border-radius: 8px; padding: 14px 76px 14px 16px; font-size: 15.5px; line-height: 1.6; margin: 0; white-space: pre-wrap; word-break: break-word; }
+  .copy { position: absolute; top: 10px; right: 10px; font-family: Cairo, sans-serif; font-size: 14px; font-weight: 800; border: 0; border-radius: 5px; padding: 2px 12px; background: var(--yellow); color: var(--navy); cursor: pointer; }
+  figure { margin: 12px 0 0; }
   figure img { display: block; max-width: 100%; border: 1px solid var(--line); border-radius: 8px; }
-  figure.narrow img { max-width: 430px; }
-  figcaption { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
-  table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 15.5px; line-height: 1.6; }
-  th, td { border-bottom: 1px solid var(--line); padding: 7px 8px; text-align: right; vertical-align: top; }
-  th { color: var(--muted); font-size: 14px; font-weight: 700; }
-  td:first-child { white-space: nowrap; font-weight: 700; }
+  figure.small img { max-width: 520px; }
+  .pair { display: flex; gap: 14px; align-items: flex-start; }
+  .pair figure { flex: 1; min-width: 0; }
+  .ok { background: #EAF7EE; border-radius: 8px; padding: 10px 16px; margin: 36px 0 0; font-weight: 700; }
+  .ok::before { content: "✓ "; color: #1E8E3E; font-weight: 800; }
+  .note { background: #F6F7F9; border-radius: 8px; padding: 12px 18px; margin: 24px 0 0; font-size: 16px; }
+  .note b { display: block; margin-bottom: 2px; }
+  .note ul { margin: 0; padding-right: 22px; }
   footer { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
   a { color: #1A56B0; }
   @media (max-width: 700px) {
-    body { font-size: 16px; }
+    body { font-size: 17px; }
     main { margin: 0; padding: 22px 16px 36px; border-radius: 0; }
     h1 { font-size: 27px; }
-    .result { grid-template-columns: 1fr; }
-    figure.narrow img { max-width: 100%; }
-    td:first-child { white-space: normal; }
+    h2 { font-size: 20px; }
+    code { white-space: normal; word-break: break-all; }
+    figure.small img { max-width: 100%; }
+    .pair { flex-direction: column; }
   }
   @page { size: A4; margin: 14mm 0; }
   @media print {
-    body { background: #fff; font-size: 14.5px; line-height: 1.7; }
+    body { background: #fff; font-size: 15px; line-height: 1.7; }
     main { max-width: none; margin: 0; padding: 0 16mm; }
     .copy, .btn.alt { display: none; }
-    section { margin-top: 26px; }
-    figure, .cmd, .ok, .warn, tr, .result, li { break-inside: avoid; }
-    h2, h3 { break-after: avoid; }
-    p:has(+ .opts), p:has(+ figure), p:has(+ .cmd), p:has(+ ol), .opts:has(+ figure) { break-after: avoid; }
-    figure.narrow img { max-width: 330px; }
-    figure img { max-height: 330px; }
+    .part { break-after: avoid; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .keep, figure, .pair, .cmd, .ok, .note { break-inside: avoid; }
+    p { orphans: 3; widows: 3; }
+    .part, h2, .where, .step p, .cmd { break-after: avoid; }
+    .step { margin-top: 26px; }
+    .ok { margin-top: 20px; } .note { margin-top: 12px; } footer { display: none; }
+    figure img { max-height: 300px; }
+    .pair figure img { max-height: 230px; }
+    .note { font-size: 13.5px; padding: 8px 14px; } .ok { padding: 6px 14px; }
+    figure.small img { max-width: 380px; }
+    .path { font-size: 14px; }
   }
 </style>
 </head>
@@ -77,177 +75,225 @@
 <main>
 
 <header>
-  <img src="logo.png" alt="DBA بالعربي">
+  <img class="logo" src="logo.png" alt="DBA بالعربي">
   <h1>تنزيل SQL Server 2022 صح من أول مرة</h1>
-  <p class="lead">الدليل المكتوب للفيديو: كل الخطوات بالترتيب الأسهل للتطبيق، مع الـ commands جاهزة للنسخ.</p>
+  <p class="lead">18 خطوة. كل خطوة فيها وين تشتغل وشو تكبس بالترتيب، ومعها صور من الفيديو. الأسماء هون أسماء lab، حط أسماءك مكانها.</p>
   <a class="btn" href="https://youtu.be/5x5WqcPqp20">▶ شوف الفيديو</a><a class="btn alt" href="S01E01_guide.pdf" download>⬇ PDF</a>
-  <div class="result">
-    <div><span>الـ instance</span><code>SQLPRD01\BUSINESS</code></div>
-    <div><span>الـ port</span><code>1433</code> ثابت</div>
-    <div><span>الـ service account</span><code>CORP\gmsa_sql$</code> (بدون password)</div>
-    <div><span>الـ authentication</span>Mixed Mode</div>
-    <div><span>الـ data</span><code>D:\DATA</code></div>
-    <div><span>الـ log</span><code>L:\LOGS</code></div>
-  </div>
-  <p class="why">كل الأسماء هون أسماء lab (domain <code>corp.local</code>، DC اسمه <code>DCPRD01</code>). حط أسماءك مكانها.</p>
 </header>
 
-<!-- 0 -->
-<section>
-  <h2><span class="n">0</span>قبل ما تبدأ</h2>
-  <ul>
-    <li>سيرفر Windows Server عليه <b>static IP</b> و<b>joined</b> على الـ domain.</li>
-    <li>User إله صلاحية <b>Domain Admins</b> على الـ domain controller.</li>
-    <li>Disk للـ data (<code>D:</code>) و disk للـ log (<code>L:</code>). منفصلين عشان ما يزاحموا بعض.</li>
-    <li>الـ firewall: بالـ lab مطفي. لو شغال عندك، افتح <b>TCP 1433</b>.</li>
-  </ul>
-</section>
+<div class="part">الجزء 1: على الـ domain controller <span>DCPRD01</span></div>
 
-<!-- 1 -->
-<section>
-  <h2><span class="n">1</span>الـ gMSA <small>على DCPRD01</small></h2>
-  <p class="why"><b>ليش؟</b> الـ domain user العادي إله password لازم حدا يحفظه ويغيّره. الـ gMSA الـ Windows بيعمله الـ password (240 حرف) وبيغيّره لحاله كل 30 يوم، وما حدا بيعرفه.</p>
+<div class="step">
+<div class="keep">
+  <h2><span class="n">1</span>اعمل الـ KDS root key</h2>
+  <div class="where"><bdi>DCPRD01 &gt; PowerShell (Run as administrator)</bdi></div>
+  <p>افتح PowerShell كـ admin:</p>
+  <p><span class="path">Start &gt; PowerShell &gt; right-click &gt; Run as administrator</span></p>
+  <p>وبعدين:</p>
+  <div class="cmd"><pre>Get-KdsRootKey
+<span class="nw">Add-KdsRootKey</span> <span class="nw">-EffectiveTime ((Get-Date).AddHours(-10))</span>
+Get-KdsRootKey</pre></div>
+  <p>آخر command لازم يرجع الـ key.</p>
+  <figure><img src="img/kds.png" alt="KDS root key created"></figure>
+</div>
+</div>
 
-  <p><b>أ.</b> افتح PowerShell بـ <b>Run as administrator</b> وتأكد إذا في KDS root key. لو ما رجع إشي، ما في:</p>
-  <div class="cmd"><pre>Get-KdsRootKey</pre></div>
+<div class="step">
+<div class="keep">
+  <h2><span class="n">2</span>اعمل group للسيرفرات</h2>
+  <div class="where"><bdi>DCPRD01 &gt; Active Directory Users and Computers</bdi></div>
+  <p><span class="path">Server Manager &gt; Tools &gt; Active Directory Users and Computers</span></p>
+  <p><span class="path">Users &gt; right-click &gt; New &gt; Group</span></p>
+  <p>الاسم <code>SQL_Servers</code>، خلي Global و Security زي ما هم، و OK.</p>
+  <figure class="small"><img src="img/newgroup.png" alt="New Object - Group"></figure>
+</div>
+</div>
 
-  <p><b>ب.</b> اعمل الـ key:</p>
-  <div class="cmd"><pre>Add-KdsRootKey -EffectiveTime ((Get-Date).AddHours(-10))</pre></div>
-  <div class="flags"><code>-EffectiveTime</code> من أي وقت الـ key بيشتغل. <code>(Get-Date).AddHours(-10)</code> يعني قبل 10 ساعات، فبيشتغل فورا.</div>
-  <div class="warn"><b>بالـ production:</b> Microsoft بتستنى 10 ساعات عشان الـ key يوصل لكل الـ domain controllers. استعمل <code>-EffectiveImmediately</code> واستنى. احنا عنا DC واحد بالـ lab.</div>
+<div class="step">
+<div class="keep">
+  <h2><span class="n">3</span>حط SQLPRD01 بالـ group</h2>
+  <div class="where"><bdi>DCPRD01 &gt; Active Directory Users and Computers</bdi></div>
+  <p><span class="path">SQL_Servers &gt; Members &gt; Add &gt; Object Types &gt; Computers</span></p>
+  <p>اكتب <code>SQLPRD01</code>، اضغط Check Names، و OK.</p>
+  <div class="pair">
+    <figure><img src="img/addmember.png" alt="Add SQLPRD01"></figure>
+    <figure><img src="img/group.png" alt="SQL_Servers members"></figure>
+  </div>
+</div>
+</div>
 
-  <p><b>ج.</b> اعمل group للسيرفرات، عشان أي سيرفر جديد بس تضيفه عليه:</p>
-  <ol>
-    <li><b>Active Directory Users and Computers</b> &gt; right-click على <b>Users</b> &gt; <b>New</b> &gt; <b>Group</b>.</li>
-    <li>الاسم <code>SQL_Servers</code>. خلّي <b>Global</b> و <b>Security</b> (الـ default) &gt; OK.</li>
-    <li>افتحه &gt; <b>Members</b> &gt; <b>Add</b> &gt; <b>Object Types</b> علّم <b>Computers</b> &gt; اكتب <code>SQLPRD01</code> &gt; OK.</li>
-  </ol>
+<div class="step">
+<div class="keep">
+  <h2><span class="n">4</span>اعمل الـ gMSA</h2>
+  <div class="where"><bdi>DCPRD01 &gt; PowerShell (Run as administrator)</bdi></div>
+  <div class="cmd"><pre><span class="nw">New-ADServiceAccount</span> <span class="nw">-Name gmsa_sql</span> <span class="nw">-DNSHostName gmsa_sql.corp.local</span> <span class="nw">-PrincipalsAllowedToRetrieveManagedPassword SQL_Servers</span></pre></div>
+  <p>ما رجع إشي؟ يعني نجح.</p>
+</div>
+</div>
 
-  <p><b>د.</b> اعمل الـ gMSA:</p>
-  <div class="cmd"><pre>New-ADServiceAccount -Name gmsa_sql -DNSHostName gmsa_sql.corp.local -PrincipalsAllowedToRetrieveManagedPassword SQL_Servers</pre></div>
-  <div class="flags"><code>-Name</code> اسم الـ account. <code>-DNSHostName</code> الاسم مع الـ domain. <code>-PrincipalsAllowedToRetrieveManagedPassword</code> مين بيقدر يستعمله: الـ group تبعنا.</div>
-  <div class="ok">ما رجع output؟ يعني نجح.</div>
+<div class="part">الجزء 2: على سيرفر الـ SQL <span>SQLPRD01</span></div>
 
-  <p><b>هـ.</b> على <b>SQLPRD01</b> (PowerShell بـ Run as administrator): امسح الـ Kerberos tickets عشان السيرفر يشوف إنه صار بالـ group، وبعدين جرّب:</p>
+<div class="step">
+<div class="keep">
+  <h2><span class="n">5</span>جرّب الـ gMSA</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; PowerShell (Run as administrator)</bdi></div>
   <div class="cmd"><pre>klist -li 0x3e7 purge
 Test-ADServiceAccount -Identity gmsa_sql</pre></div>
-  <div class="flags"><code>-li 0x3e7</code> الـ session تبع الكمبيوتر نفسه (SYSTEM). <code>purge</code> امسح. <code>-Identity</code> الـ account اللي بدنا نجربه.</div>
-  <figure><img src="img/test.png" alt="Test-ADServiceAccount returns True"><figcaption>النتيجة لازم تكون True</figcaption></figure>
-</section>
+  <p>لازم يرجع <code>True</code>.</p>
+  <figure><img src="img/test.png" alt="Test-ADServiceAccount returns True"></figure>
+</div>
+</div>
 
-<!-- 2 -->
-<section>
-  <h2><span class="n">2</span>الـ folders والصلاحيات <small>على SQLPRD01</small></h2>
-  <ol>
-    <li>اعمل folder <code>D:\DATA</code> و folder <code>L:\LOGS</code>.</li>
-    <li>على كل واحد: right-click &gt; <b>Properties</b> &gt; <b>Security</b> &gt; <b>Edit</b> &gt; <b>Add</b>.</li>
-    <li><b>Object Types</b> علّم <b>Service Accounts</b> &gt; اكتب <code>gmsa_sql</code> &gt; <b>Check Names</b> &gt; OK.</li>
-    <li>علّم <b>Full control</b> &gt; Apply &gt; OK. (لو بدك أقل: <b>Modify</b> بكفي.)</li>
-  </ol>
-  <figure class="narrow"><img src="img/security.png" alt="Folder permissions for gmsa_sql"><figcaption>gmsa_sql مع Full control على D:\DATA</figcaption></figure>
-</section>
-
-<!-- 3 -->
-<section>
-  <h2><span class="n">3</span>الـ setup <small>على SQLPRD01</small></h2>
-  <p>نزّل SQL Server 2022 من <b>Microsoft Evaluation Center</b> وشغّله:</p>
-  <div class="opts">
-    <span class="o">Basic: بيركّب كل إشي بدون ما تختار</span>
-    <span class="o">Custom: بينزّل وبيفتح الـ setup</span>
-    <span class="o pick">Download Media: بينزّل الـ ISO، ونفس الـ ISO بتستعمله على كل سيرفراتك</span>
+<div class="step">
+<div class="keep">
+  <h2><span class="n">6</span>اعمل الـ folders واعطي الـ gMSA صلاحية</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; File Explorer</bdi></div>
+  <p>اعمل <code>D:\DATA</code> و <code>L:\LOGS</code>. على كل واحد:</p>
+  <p><span class="path">right-click &gt; Properties &gt; Security &gt; Edit &gt; Add &gt; Object Types &gt; Service Accounts</span></p>
+  <p>اكتب <code>gmsa_sql</code>، Check Names، OK. بعدين علّم <b>Full control</b>، Apply، OK.</p>
+  <div class="pair">
+    <figure><img src="img/selectsa.png" alt="Add gmsa_sql"></figure>
+    <figure><img src="img/security.png" alt="gmsa_sql Full control"></figure>
   </div>
-  <figure class="narrow"><img src="img/download.png" alt="Download Media option"></figure>
-  <p>اعمل <b>Mount</b> للـ ISO &gt; right-click على <b>setup.exe</b> &gt; <b>Run as administrator</b> &gt; <b>Installation</b> &gt; <b>New SQL Server standalone installation</b>.</p>
+</div>
+</div>
 
-  <table>
-    <tr><th>الصفحة</th><th>شو بتختار</th></tr>
-    <tr><td>Edition</td><td><b>Evaluation</b></td></tr>
-    <tr><td>Microsoft Update</td><td>اختياري، تركناه لأنه بطيء</td></tr>
-    <tr><td>Feature Selection</td><td><b>Database Engine Services</b> بس</td></tr>
-    <tr><td>Instance Configuration</td><td><b>Named instance</b>: <code>BUSINESS</code></td></tr>
-    <tr><td>Server Configuration</td><td>الـ Agent والـ Engine: <code>CORP\gmsa_sql$</code>، password فاضي، Automatic. الـ Browser: Disabled. وعلّم <b>Grant Perform Volume Maintenance Task</b></td></tr>
-    <tr><td>Collation</td><td>خليه default</td></tr>
-    <tr><td>Database Engine</td><td><b>Mixed Mode</b> + password للـ sa + <b>Add Current User</b></td></tr>
-    <tr><td>Data Directories</td><td>Data: <code>D:\DATA</code>، Log: <code>L:\LOGS</code></td></tr>
-    <tr><td>TempDB، MaxDOP</td><td>خليهم default</td></tr>
-    <tr><td>Memory</td><td><b>Recommended</b> + علّم Accept</td></tr>
-  </table>
+<div class="step">
+<div class="keep">
+  <h2><span class="n">7</span>نزّل SQL Server 2022</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; Browser (Edge)</bdi></div>
+  <p>ابحث عن <b>SQL Server 2022 Evaluation Center</b>، نزّل الملف وشغّله، واختار <b>Download Media</b>.</p>
+  <p>لو طلب منك تنزّله من مكان ثاني، عادي، اضغط كمان مرة.</p>
+  <figure class="small"><img src="img/download.png" alt="Download Media"></figure>
+</div>
+</div>
 
-  <p><b>الـ Edition:</b></p>
-  <div class="opts">
-    <span class="o">Express: مجانية، بس 10 GB لكل database</span>
-    <span class="o">Developer: مجانية وكاملة، بس مش للـ production</span>
-    <span class="o pick">Evaluation: Enterprise كاملة 180 يوم، وبعدين بتحط الـ key</span>
-  </div>
+<div class="step">
+<div class="keep">
+  <h2><span class="n">8</span>شغّل الـ setup</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; File Explorer</bdi></div>
+  <p>double-click على الـ ISO عشان يعمل Mount، بعدين:</p>
+  <p><span class="path">setup &gt; right-click &gt; Run as administrator</span></p>
+  <figure><img src="img/setupexe.png" alt="setup.exe"></figure>
+</div>
+  <p><span class="path">Installation &gt; New SQL Server standalone installation</span></p>
+  <figure><img src="img/center.png" alt="SQL Server Installation Center"></figure>
+</div>
 
-  <p><b>الـ Features:</b> الـ Database Engine فيه 99% من اللي بتحتاجه. أي feature ثانية بتضيفها بعدين.</p>
-  <figure><img src="img/features.png" alt="Feature Selection"></figure>
+<div class="step">
+<div class="keep">
+  <h2><span class="n">9</span>الـ Edition</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; SQL Server 2022 Setup</bdi></div>
+  <p>اختار <b>Evaluation</b> و Next. الصفحات اللي بعدها (License Terms، Rules، Microsoft Update): Accept و Next.</p>
+  <figure><img src="img/edition.png" alt="Edition Evaluation"></figure>
+</div>
+</div>
 
-  <p><b>الـ Instance:</b></p>
-  <div class="opts">
-    <span class="o">Default: بتتصل بـ <code>SQLPRD01</code>. لو عندك instance واحد، هاد أسهل</span>
-    <span class="o pick">Named: بتتصل بـ <code>SQLPRD01\BUSINESS</code>. اخترناه عشان نشرح خطوة الـ port</span>
-  </div>
+<div class="step">
+<div class="keep">
+  <h2><span class="n">10</span>الـ Features</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; SQL Server 2022 Setup</bdi></div>
+  <p>علّم بس <b>Database Engine Services</b>.</p>
+  <figure><img src="img/features.png" alt="Database Engine Services"></figure>
+</div>
+</div>
+
+<div class="step">
+<div class="keep">
+  <h2><span class="n">11</span>Named instance</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; SQL Server 2022 Setup</bdi></div>
+  <p>اختار <b>Named instance</b> واكتب <code>BUSINESS</code>.</p>
   <figure><img src="img/instance.png" alt="Named instance BUSINESS"></figure>
+</div>
+</div>
 
-  <p><b>الـ Service accounts:</b> لاحظ الـ <code>$</code> بالآخر والـ password فاضي، هاي فكرة الـ gMSA. الـ Automatic يعني بيشتغل لحاله بعد الـ restart. الـ Browser بنطفيه لأنه رح نثبّت الـ port.</p>
-  <p><b>Perform Volume Maintenance Task</b> = Instant File Initialization: الـ restore وكبر الملفات بيصير أسرع بكثير، لأنه ما بيعبّي المساحة أصفار أول.</p>
+<div class="step">
+<div class="keep">
+  <h2><span class="n">12</span>الـ Service accounts</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; SQL Server 2022 Setup</bdi></div>
+  <p>الـ Agent والـ Engine: <code>CORP\gmsa_sql$</code> والـ password <b>فاضي</b> (الـ gMSA ما إله password تكتبه). علّم <b>Grant Perform Volume Maintenance Tasks</b>. الـ Collation خليه زي ما هو.</p>
+  <figure><img src="img/accounts.png" alt="CORP\gmsa_sql$ with empty password"></figure>
+</div>
+</div>
 
-  <p><b>الـ Authentication:</b></p>
-  <div class="opts">
-    <span class="o">Windows: بس accounts الـ domain، الأأمن</span>
-    <span class="o pick">Mixed: Windows و SQL logins، لأن applications كثير لسا بتحتاج SQL login</span>
+<div class="step">
+<div class="keep">
+  <h2><span class="n">13</span>Mixed Mode والـ admins</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; SQL Server 2022 Setup</bdi></div>
+  <p>اختار <b>Mixed Mode</b>، حط password للـ <code>sa</code>، واضغط <b>Add Current User</b>. لازم يطلع اسمك بالقائمة.</p>
+  <figure><img src="img/engine.png" alt="Mixed Mode and admin"></figure>
+</div>
+</div>
+
+<div class="step">
+<div class="keep">
+  <h2><span class="n">14</span>الـ Data و Log folders</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; SQL Server 2022 Setup</bdi></div>
+  <p>بتبويب <b>Data Directories</b>: الـ Data <code>D:\DATA</code> والـ Log <code>L:\LOGS</code>. الـ TempDB والـ MaxDOP خليهم زي ما هم. الـ Memory: اختار <b>Recommended</b> وعلّم Accept.</p>
+  <figure><img src="img/dirs.png" alt="D:\DATA and L:\LOGS"></figure>
+</div>
+</div>
+
+<div class="step">
+<div class="keep">
+  <h2><span class="n">15</span>Install</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; SQL Server 2022 Setup</bdi></div>
+  <p>بصفحة <b>Ready to Install</b> راجع الـ accounts والـ folders، بعدين <b>Install</b>.</p>
+  <figure><img src="img/ready.png" alt="Ready to Install"></figure>
+</div>
+  <p>بالآخر كل إشي لازم يكون <b>Succeeded</b>.</p>
+  <figure><img src="img/complete.png" alt="Install succeeded"></figure>
+</div>
+
+<div class="step">
+<div class="keep">
+  <h2><span class="n">16</span>ثبّت الـ port على 1433</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; SQL Server 2022 Configuration Manager</bdi></div>
+  <p>افتحه من Start. أول إشي تأكد إن الـ services شغالة بالـ gMSA:</p>
+  <figure><img src="img/services.png" alt="Services running as CORP\gmsa_sql$"></figure>
+</div>
+  <p><span class="path">SQL Server Network Configuration &gt; Protocols for BUSINESS &gt; TCP/IP &gt; IP Addresses</span></p>
+  <p>انزل لآخر قسم <b>IPAll</b>: امسح TCP Dynamic Ports، وحط TCP Port <code>1433</code>، و OK.</p>
+  <figure class="small"><img src="img/ipall.png" alt="IPAll TCP Port 1433"></figure>
+  <p>بعدين اعمل Restart:</p>
+  <p><span class="path">SQL Server Services &gt; SQL Server (BUSINESS) &gt; right-click &gt; Restart</span></p>
+</div>
+
+<div class="step">
+<div class="keep">
+  <h2><span class="n">17</span>نزّل SSMS</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; Browser (Edge)</bdi></div>
+  <p>ابحث عن <b>SSMS</b>، وبصفحة Microsoft اضغط <b>Download SQL Server Management Studio 22 installer</b>.</p>
+  <figure><img src="img/ssmsdl.png" alt="Download SSMS"></figure>
+</div>
+  <p>بالـ installer:</p>
+  <p><span class="path">Individual components &gt; Business Intelligence</span></p>
+  <p>علّم الثلاثة (فيهم Integration Services، بتحتاجه للـ maintenance plans)، و Install.</p>
+  <figure><img src="img/ssmsparts.png" alt="SSMS components"></figure>
+</div>
+
+<div class="step">
+<div class="keep">
+  <h2><span class="n">18</span>اتصل</h2>
+  <div class="where"><bdi>SQLPRD01 &gt; SSMS</bdi></div>
+  <p>Server name <code>SQLPRD01\BUSINESS</code>، Authentication <b>SQL Server Authentication</b>، user <code>sa</code> والـ password، علّم <b>Trust Server Certificate</b>، و Connect. لازم تشوف السيرفر بالـ Object Explorer.</p>
+  <div class="pair">
+    <figure><img src="img/ssms.png" alt="SSMS connect"></figure>
+    <figure><img src="img/oe.png" alt="Object Explorer"></figure>
   </div>
-  <figure><img src="img/engine.png" alt="Mixed Mode"></figure>
-  <figure><img src="img/dirs.png" alt="Data directories D:\DATA and L:\LOGS"></figure>
-  <div class="ok">بالآخر: <b>Install</b>، وكل الـ features لازم تكون <b>Succeeded</b>.</div>
-</section>
+</div>
+</div>
 
-<!-- 4 -->
-<section>
-  <h2><span class="n">4</span>ثبّت الـ port على 1433 <small>Configuration Manager</small></h2>
-  <p class="why"><b>ليش؟</b> الـ named instance ممكن ياخذ port ثاني بعد الـ restart، والـ application بتتصل على port ثابت. <b>Default instance؟</b> اقفز عن هالخطوة.</p>
-  <ol>
-    <li>افتح <b>SQL Server 2022 Configuration Manager</b>. تحت <b>SQL Server Services</b> لازم تشوف الـ instance شغال تحت الـ gMSA.</li>
-    <li><b>SQL Server Network Configuration</b> &gt; <b>Protocols for BUSINESS</b> &gt; double-click <b>TCP/IP</b> &gt; <b>IP Addresses</b>.</li>
-    <li>انزل لآخر إشي، <b>IPAll</b>: امسح <b>TCP Dynamic Ports</b>، وحط <b>TCP Port</b> = <code>1433</code> &gt; Apply &gt; OK.</li>
-    <li><b>SQL Server Services</b> &gt; right-click <b>SQL Server (BUSINESS)</b> &gt; <b>Restart</b>.</li>
-  </ol>
-  <figure><img src="img/services.png" alt="Services running as CORP\gmsa_sql$"><figcaption>الـ Engine والـ Agent: Running، Automatic، CORP\gmsa_sql$</figcaption></figure>
-  <figure class="narrow"><img src="img/ipall.png" alt="IPAll TCP Port 1433"></figure>
-  <div class="ok">من جهاز ثاني اتصل هيك، بفاصلة: <code>SQLPRD01\BUSINESS,1433</code></div>
-</section>
+<div class="ok">خلصنا. من جهاز ثاني اتصل هيك، بفاصلة: <code>SQLPRD01\BUSINESS,1433</code></div>
 
-<!-- 5 -->
-<section>
-  <h2><span class="n">5</span>SSMS والاتصال</h2>
-  <ol>
-    <li>نزّل <b>SQL Server Management Studio</b> من Microsoft. بـ <b>Individual components</b> ضيف <b>Integration Services</b> و <b>Business Intelligence</b> (للـ maintenance plans).</li>
-    <li>افتح SSMS &gt; <b>Server Name</b> &gt; Browse &gt; Local &gt; <code>SQLPRD01\BUSINESS</code>.</li>
-    <li><b>SQL Server Authentication</b>، user <code>sa</code> والـ password، علّم <b>Trust Server Certificate</b> &gt; <b>Connect</b>.</li>
-  </ol>
-  <figure class="narrow"><img src="img/ssms.png" alt="SSMS connect dialog"></figure>
-  <div class="ok">افتح <b>Databases</b>: بس System Databases. السيرفر جاهز.</div>
-</section>
-
-<!-- 6 -->
-<section>
-  <h2><span class="n">6</span>قبل الـ production</h2>
+<div class="note">
+  <b>بالـ production، غيّر هدول:</b>
   <ul>
-    <li>الـ KDS key: <code>-EffectiveImmediately</code> واستنى الـ 10 ساعات.</li>
-    <li>الـ edition: Enterprise أو Standard مع key.</li>
-    <li>الـ firewall شغال، و TCP 1433 مفتوح.</li>
-    <li>Certificate حقيقي بدل Trust Server Certificate.</li>
-    <li>Disk ثالث للـ backups.</li>
-    <li>اتصل بالـ Windows account تبعك، والـ sa للطوارئ بس.</li>
+    <li>الـ KDS key: استعمل <code>-EffectiveImmediately</code> واستنى 10 ساعات بدل <code>AddHours(-10)</code>.</li>
+    <li>الـ firewall شغال، وافتح TCP 1433.</li>
+    <li>Edition بـ key (Standard أو Enterprise)، و certificate حقيقي.</li>
   </ul>
-  <p><b>لو صار مشكلة:</b></p>
-  <ul>
-    <li><code>Test-ADServiceAccount</code> رجّع False: تأكد إن السيرفر بالـ group، وأعد الـ <code>klist</code>، أو اعمل restart.</li>
-    <li>ما لقيت <code>gmsa_sql</code> بالـ Add: بـ Object Types علّم Service Accounts.</li>
-    <li>مش قادر تتصل من جهاز ثاني: الـ port، الـ restart، الـ firewall، والفاصلة.</li>
-  </ul>
-</section>
+</div>
 
 <footer>عندك سؤال؟ اكتبه بالتعليقات تحت <a href="https://youtu.be/5x5WqcPqp20">الفيديو</a>. <b>DBA بالعربي</b> | @DBAbilArabi</footer>
 </main>
