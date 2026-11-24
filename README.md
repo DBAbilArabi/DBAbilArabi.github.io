@@ -1,5 +1,11 @@
 # DBA بالعربي guides
 
-الدليل المكتوب لكل حلقة على قناة [DBA بالعربي](https://www.youtube.com/@DBAbilArabi).
+Step-by-step written guides for the [DBA بالعربي](https://www.youtube.com/@DBAbilArabi) YouTube channel.
 
-https://dbabilarabi.github.io/
+الدليل المكتوب لكل حلقة على القناة.
+
+Site: https://dbabilarabi.github.io/
+
+| Episode | Guide |
+|---|---|
+| S01E01 Install SQL Server 2022 | https://dbabilarabi.github.io/s01e01/ |
