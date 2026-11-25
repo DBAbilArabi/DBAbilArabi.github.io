@@ -9,3 +9,4 @@ Site: https://dbabilarabi.github.io/
 | Episode | Guide |
 |---|---|
 | S01E01 Install SQL Server 2022 | https://dbabilarabi.github.io/s01e01/ |
+| S01E02 Always On Availability Group | https://dbabilarabi.github.io/s01e02/ |
